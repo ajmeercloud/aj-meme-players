@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,14 +31,8 @@ body {
   box-shadow: 0 8px 25px #0003;
 }
 
-h1 {
-  color: #873cff;
-  margin-bottom: 10px;
-}
-
-h2 {
-  margin: 20px 0;
-}
+h1 { color: #873cff; }
+h2 { margin: 20px 0; }
 
 .info {
   display: flex;
@@ -51,6 +46,9 @@ h2 {
 .target {
   font-size: 85px;
   margin: 25px;
+  cursor: pointer;
+  display: inline-block;
+  user-select: none;
 }
 
 button {
@@ -63,8 +61,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #6125c5;
+button:hover { background: #6125c5; }
+
+#message {
+  margin: 15px;
+  font-weight: bold;
 }
 </style>
 </head>
@@ -72,22 +73,65 @@ button:hover {
 <body>
 
 <div class="container">
-
   <h1>😂 AJ MEME PLAYERS</h1>
   <h2>🎯 Meme Target Game</h2>
 
   <p>Target par click karo aur points kamao!</p>
 
   <div class="info">
-    <div>⭐ Score: 0</div>
-    <div>⏱️ Time: 60</div>
+    <div>⭐ Score: <span id="score">0</span></div>
+    <div>⏱️ Time: <span id="time">60</span></div>
   </div>
 
-  <div class="target">😂</div>
+  <div class="target" id="target">😂</div>
 
-  <button>Start Game</button>
+  <p id="message">Start button dabao aur khelo!</p>
 
+  <button id="startBtn" onclick="startGame()">Start Game</button>
 </div>
+
+<script>
+let score = 0;
+let time = 60;
+let timer;
+let playing = false;
+
+function startGame() {
+  if (playing) return;
+
+  score = 0;
+  time = 60;
+  playing = true;
+
+  document.getElementById("score").textContent = score;
+  document.getElementById("time").textContent = time;
+  document.getElementById("message").textContent = "Game shuru! Target par click karo!";
+  document.getElementById("startBtn").textContent = "Playing...";
+
+  timer = setInterval(function() {
+    time--;
+    document.getElementById("time").textContent = time;
+
+    if (time <= 0) {
+      clearInterval(timer);
+      playing = false;
+      document.getElementById("message").textContent =
+        "Game Over! Tumhara score: " + score;
+      document.getElementById("startBtn").textContent = "Play Again";
+    }
+  }, 1000);
+}
+
+document.getElementById("target").addEventListener("click", function() {
+  if (!playing) return;
+
+  score++;
+  document.getElementById("score").textContent = score;
+
+  const memes = ["😂", "🤣", "😜", "😎", "🤪"];
+  this.textContent = memes[Math.floor(Math.random() * memes.length)];
+});
+</script>
 
 </body>
 </html>
