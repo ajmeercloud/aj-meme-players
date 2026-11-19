@@ -44,10 +44,14 @@ h2 { margin: 20px 0; }
 }
 
 .target {
-  font-size: 85px;
-  margin: 25px;
+  width: 180px;
+  height: 180px;
+  margin: 25px auto;
   cursor: pointer;
-  display: inline-block;
+  background-image: url("meme-characters.png");
+  background-size: 200% 200%;
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
   user-select: none;
 }
 
@@ -83,7 +87,7 @@ button:hover { background: #6125c5; }
     <div>⏱️ Time: <span id="time">60</span></div>
   </div>
 
-  <div class="target" id="target">😂</div>
+  <div class="target" id="target"></div>
 
   <p id="message">Start button dabao aur khelo!</p>
 
